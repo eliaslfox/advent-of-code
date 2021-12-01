@@ -1,4 +1,4 @@
-(asdf:defsystem #:advent-of-code
+(asdf:defsystem #:advent-of-code-2021
   :depends-on (#:coalton)
   :pathname "src/"
   :serial t
