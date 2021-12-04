@@ -3,4 +3,5 @@
   :pathname "src/"
   :serial t
   :components ((:file "day-1")
-               (:file "day-2")))
+               (:file "day-2")
+               (:file "day-4")))
