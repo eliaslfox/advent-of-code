@@ -3,11 +3,10 @@
 
 (defun read-input ()
   (with-open-file (stream (asdf:system-relative-pathname :advent-of-code-2021 "src/day-2.txt"))
-    (coalton-library:cl-list-to-coalton
-     (loop :for line := (read-line stream nil)
-           :while line
-           :for split := (split-sequence:split-sequence #\SPACE line)
-           :collect (coalton-library:Tuple (first split) (parse-integer (second split)))))))
+    (loop :for line := (read-line stream nil)
+          :while line
+          :for split := (split-sequence:split-sequence #\SPACE line)
+          :collect (coalton-library:Tuple (first split) (parse-integer (second split))))))
 
 (cl:in-package #:day-2)
 

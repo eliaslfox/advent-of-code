@@ -5,10 +5,9 @@
 
 (defun read-file-2 ()
   (with-open-file (stream (asdf:system-relative-pathname :advent-of-code-2021 "src/day-4.txt"))
-    (coalton-library:cl-list-to-coalton
-     (loop :for line := (read-line stream nil)
-           :while line
-           :collect line))))
+    (loop :for line := (read-line stream nil)
+          :while line
+          :collect line)))
 
 (in-package #:day-4)
 
@@ -62,8 +61,7 @@
   (define (apply-number n cell)
     (progn
       (when (== n (fst cell))
-        (progn
-          (cell-write True (snd cell))))))
+        (cell-write True (snd cell)))))
 
   (declare apply-number-to-board (Integer -> (List (List (Tuple Integer (Cell Boolean)))) -> Unit))
   (define (apply-number-to-board n board)
@@ -93,9 +91,8 @@
               (let board = (fst b))
               (apply-number-to-board x board)
               (when (board-is-won board)
-                (progn
-                  (traceObject "score" (* x (score-board board)))
-                  (cell-write True done)))))
+                (traceObject "score" (* x (score-board board)))
+                (cell-write True done))))
           boards)
          (unless (cell-read done)
            (run xs))
@@ -117,18 +114,14 @@
                         (let board = (fst b))
                         (let won = (snd b))
                         (unless (cell-read won)
-                          (progn
-                            (apply-number-to-board x board)
-                            (when (board-is-won board)
-                              (progn
-                                (cell-update (+ 1) total-won)
-                                (cell-write True won)))
-                            (when (== total (cell-read total-won))
-                              (traceObject "score" (* x (score-board board))))))))
+                          (apply-number-to-board x board)
+                          (when (board-is-won board)
+                            (cell-update (+ 1) total-won)
+                            (cell-write True won))
+                          (when (== total (cell-read total-won))
+                            (traceObject "score" (* x (score-board board)))))))
                     boards)
                    (unless (== total (cell-read total-won))
                      (inner xs))))
                 ((Nil) Unit)))))
-      (inner numbers)))
-
- )
+      (inner numbers))))
